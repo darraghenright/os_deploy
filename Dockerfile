@@ -16,7 +16,9 @@ FROM alpine:3.9 AS app
 
 RUN apk add --no-cache openssl ncurses-libs
 WORKDIR /app
-COPY --from=build /app/_build/prod/rel/os_deploy ./
+RUN chown nobody:nobody /app
+USER nobody:nobody
+COPY --from=build --chown=nobody:nobody /app/_build/prod/rel/os_deploy ./
 ENV HOME=/app
 RUN chgrp -R 0 /app && chmod -R g=u /app
 
