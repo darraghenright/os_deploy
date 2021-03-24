@@ -18,6 +18,7 @@ RUN apk add --no-cache openssl ncurses-libs
 WORKDIR /app
 COPY --from=build /app/_build/prod/rel/os_deploy ./
 ENV HOME=/app
+RUN chgrp -R 0 /app && chmod -R g=u /app
 
 # run
 CMD ["bin/os_deploy", "start"]
